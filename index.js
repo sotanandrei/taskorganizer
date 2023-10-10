@@ -7,8 +7,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = 3000;
 
-// route to static files
+// Serve static files
 app.use(express.static(__dirname + "/public"));
+
+// Serve Bootstrap CSS from 'node_modules'
+app.use(
+  "/css/bootstrap",
+  express.static(__dirname + "/node_modules/bootstrap/dist/css")
+);
 
 // index page
 app.get("/", (req, res) => {
