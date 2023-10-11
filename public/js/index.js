@@ -38,8 +38,12 @@
 //     closeLoginModal();
 //   }
 // });
+let section = document.getElementsByClassName("heroes");
 function toggleModal(modal, action) {
   modal.classList[action]("hidden");
+  section[0].classList.contains("filtered")
+    ? section[0].classList.remove("filtered")
+    : section[0].classList.add("filtered");
 }
 
 const modals = {

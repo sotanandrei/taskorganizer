@@ -86,3 +86,15 @@ body {
   font-size: 1.5rem;
   color: #a4a4a6;
 }
+
+.filtered {
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
+}
+
+.modals {
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;
+}
