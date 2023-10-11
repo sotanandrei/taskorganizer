@@ -5,40 +5,313 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Taskorganizer</title>
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bootstrap-icons/bootstrap-icons.css" />
+    <link rel="stylesheet" href="/styles/index.css" />
   </head>
   <body>
-    <div class="container col-xxl-8 px-4 py-5">
-      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-        <div class="col-10 col-sm-8 col-lg-6">
-          <img
-            src="/images/bootstrap-themes.png"
-            class="d-block mx-lg-auto img-fluid"
-            alt="Bootstrap Themes"
-            width="700"
-            height="500"
-            loading="lazy"
-          />
+    <section class="heroes">
+      <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img
+              src="/images/homepagebg.png"
+              class="d-block mx-lg-auto img-fluid"
+              alt="Bootstrap Themes"
+              loading="lazy"
+            />
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+              Taskorganizer
+            </h1>
+            <p class="lead">
+              "TaskOrganizer" is a powerful and intuitive task management app
+              designed to streamline your daily productivity. You can
+              effortlessly organize your to-do lists, set priorities, and track
+              progress, all within a user-friendly interface.
+            </p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+              <button
+                type="button"
+                class="btn btn-primary btn-lg px-4 me-md-2"
+                id="openLoginBtn"
+              >
+                Log in
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-lg px-4"
+                id="openSignupBtn"
+              >
+                Sign up
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-6">
-          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
-            Taskorganizer
-          </h1>
-          <p class="lead">
-            Quickly design and customize responsive mobile-first sites with
-            Bootstrap, the world’s most popular front-end open source toolkit,
-            featuring Sass variables and mixins, responsive grid system,
-            extensive prebuilt components, and powerful JavaScript plugins.
-          </p>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">
-              Sign up
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
-              Log in
-            </button>
+      </div>
+    </section>
+    <div
+      class="modal modal-sheet position-static d-block p-4 py-md-5 signup-modal hidden"
+      tabindex="-1"
+      role="dialog"
+      id="modalSignin"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header p-5 pb-4 border-bottom-0">
+            <h1 class="fw-bold mb-0 fs-2 h1-modal">Sign up</h1>
+            <button
+              type="button"
+              class="btn-close"
+              id="closeSignupBtn"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body p-5 pt-0">
+            <form class="">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control rounded-3"
+                  id="signupUsername"
+                  placeholder="Username"
+                />
+                <label for="signupUsername"
+                  ><i class="bi bi-person-fill"></i
+                  ><span class="label-input">Username</span></label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control rounded-3"
+                  id="signupEmail"
+                  placeholder="name@example.com"
+                />
+                <label for="signupEmail"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="20"
+                    viewBox="0 0 22 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M16.5448 7.01904C16.5448 7.01904 13.3348 10.8717 10.9869 10.8717C8.64004 10.8717 5.39392 7.01904 5.39392 7.01904"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M1.45203 9.96884C1.45203 3.13075 3.83298 0.852051 10.9758 0.852051C18.1187 0.852051 20.4996 3.13075 20.4996 9.96884C20.4996 16.8059 18.1187 19.0856 10.9758 19.0856C3.83298 19.0856 1.45203 16.8059 1.45203 9.96884Z"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    /></svg
+                  ><span class="label-input">Email address</span></label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control rounded-3"
+                  id="signupPassword"
+                  placeholder="Password"
+                />
+                <label for="signupPassword"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M16.4709 9.40335V7.25435C16.4399 4.73535 14.3719 2.71935 11.8539 2.75035C9.38691 2.78135 7.39191 4.76735 7.34991 7.23435V9.40335"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M11.9103 14.1562V16.3772"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M11.9103 8.82422C6.16531 8.82422 4.25031 10.3922 4.25031 15.0952C4.25031 19.7992 6.16531 21.3672 11.9103 21.3672C17.6553 21.3672 19.5713 19.7992 19.5713 15.0952C19.5713 10.3922 17.6553 8.82422 11.9103 8.82422Z"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    /></svg
+                  ><span class="label-input">Password</span></label
+                >
+              </div>
+              <button
+                class="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
+                type="submit"
+              >
+                Sign up
+              </button>
+              <small class="text-body-secondary"
+                >By clicking Sign up, you agree to the terms of use.</small
+              >
+              <hr class="my-4" />
+              <h2 class="fs-5 fw-bold mb-3 h1-modal">Or use a third-party</h2>
+              <button
+                class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
+                type="submit"
+              >
+                <i class="bi bi-twitter"></i>
+                Sign up with Twitter
+              </button>
+              <button
+                class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
+                type="submit"
+              >
+                <i class="bi bi-facebook"></i>
+                Sign up with Facebook
+              </button>
+              <button
+                class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
+                type="submit"
+              >
+                <i class="bi bi-github"></i>
+                Sign up with GitHub
+              </button>
+              <div class="form-floating mt-5 no-account">
+                Don't have an account? <b>Sign up</b>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+    <div
+      class="modal modal-sheet position-static d-block p-4 py-md-5 signup-modal hidden"
+      tabindex="-1"
+      role="dialog"
+      id="modalLogin"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header p-5 pb-4 border-bottom-0">
+            <h1 class="fw-bold fs-2 h1-modal">Log in</h1>
+            <button
+              type="button"
+              class="btn-close"
+              id="closeLoginBtn"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body p-5 pt-0 pb-3">
+            <form class="form-login">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control rounded-3"
+                  id="loginEmail"
+                  placeholder="name@example.com"
+                />
+                <label for="loginEmail"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="20"
+                    viewBox="0 0 22 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M16.5448 7.01904C16.5448 7.01904 13.3348 10.8717 10.9869 10.8717C8.64004 10.8717 5.39392 7.01904 5.39392 7.01904"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M1.45203 9.96884C1.45203 3.13075 3.83298 0.852051 10.9758 0.852051C18.1187 0.852051 20.4996 3.13075 20.4996 9.96884C20.4996 16.8059 18.1187 19.0856 10.9758 19.0856C3.83298 19.0856 1.45203 16.8059 1.45203 9.96884Z"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span class="label-input">Email ID or Username</span></label
+                >
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control rounded-3"
+                  id="loginPassword"
+                  placeholder="Password"
+                />
+                <label for="loginPassword"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M16.4709 9.40335V7.25435C16.4399 4.73535 14.3719 2.71935 11.8539 2.75035C9.38685 2.78135 7.39185 4.76735 7.34985 7.23435V9.40335"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M11.9103 14.1562V16.3772"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M11.9102 8.82422C6.16524 8.82422 4.25024 10.3922 4.25024 15.0952C4.25024 19.7992 6.16524 21.3672 11.9102 21.3672C17.6552 21.3672 19.5712 19.7992 19.5712 15.0952C19.5712 10.3922 17.6552 8.82422 11.9102 8.82422Z"
+                      stroke="#A4A4A6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    /></svg
+                  ><span class="label-input">Password</span></label
+                >
+              </div>
+              <div class="form-floating mb-5 forgot-password">
+                Forgot password?
+              </div>
+              <button
+                class="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
+                type="submit"
+              >
+                Log in
+              </button>
+              <div class="form-floating mt-5 no-account">
+                Don't have an account? <b>Sign up</b>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/index.js"></script>
   </body>
 </html>

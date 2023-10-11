@@ -1,0 +1,88 @@
+/* FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap");
+/* ICONS */
+body {
+  font-family: "Hind Siliguri", sans-serif;
+}
+
+/* HEROES SECTION */
+.heroes {
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;
+}
+
+.heroes h1 {
+  color: #5b67ca !important;
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #5b67ca;
+  --bs-btn-border-color: #5b67ca;
+  --bs-btn-hover-bg: #3e4796;
+  --bs-btn-hover-border-color: #3e4796;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #3e4796;
+  --bs-btn-active-border-color: #3e4796;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #3e4796;
+  --bs-btn-disabled-border-color: #3e4796;
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: #5b67ca;
+  --bs-btn-border-color: #5b67ca;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #5b67ca;
+  --bs-btn-hover-border-color: #5b67ca;
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #5b67ca;
+  --bs-btn-active-border-color: #5b67ca;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #5b67ca;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #5b67ca;
+  --bs-gradient: none;
+}
+
+/* SIGN UP & LOG IN MODAL */
+.signup-modal {
+  position: fixed !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.h1-modal {
+  color: #5b67ca;
+}
+
+.modal-content {
+  color: #c6cedd !important;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.label-input {
+  margin-left: 0.5rem;
+}
+
+.forgot-password {
+  text-align: right;
+  color: #5b67ca;
+}
+
+.no-account {
+  text-align: center;
+  color: #5b67ca;
+}
+
+.bi-person-fill {
+  font-size: 1.5rem;
+  color: #a4a4a6;
+}
