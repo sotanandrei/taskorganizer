@@ -27,6 +27,11 @@ app.get("/", (req, res) => {
   res.render(__dirname + "/views/index.ejs");
 });
 
+// account page
+app.get("/account", (req, res) => {
+  res.render(__dirname + "/views/account.ejs");
+});
+
 // port
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

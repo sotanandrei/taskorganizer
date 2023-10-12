@@ -1,0 +1,98 @@
+/* FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap");
+/* ICONS */
+body {
+  font-family: "Hind Siliguri", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+/* HEADER CONTAINER */
+.container {
+  padding: 5% 10%;
+}
+
+.container p {
+  color: #575757;
+  font-weight: 400;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container > h2 {
+  color: #12175e;
+  font-weight: 600;
+}
+
+/* My taks Section */
+.mytask-section {
+  padding: 0 10%;
+}
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-container h2 {
+  color: #12175e;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.task-container p {
+  color: #393f93;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+/* Today's task section */
+.todaytask-section {
+  padding: 0 10%;
+}
+
+.task {
+  width: 100%;
+  height: 100px;
+  border-radius: 15px;
+  background: #f9fafd;
+  position: relative;
+}
+.task-details {
+  border-left-style: solid;
+  border-width: 2px;
+  border-color: #8f99eb;
+  padding-left: 2%;
+  margin-left: 5%;
+  position: absolute;
+  top: 15px;
+}
+
+.task-title {
+  color: #2c406e;
+  font-weight: 500;
+}
+
+.task-time {
+  color: #9aa8c7;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.task-tags {
+  display: inline-block;
+}
