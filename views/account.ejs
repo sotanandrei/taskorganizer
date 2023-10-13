@@ -5,18 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Taskorganizer</title>
     <link rel="stylesheet" href="/styles/account.css" />
+    <link rel="stylesheet" href="/bootstrap-icons/bootstrap-icons.css" />
   </head>
   <body>
     <div class="container">
       <div class="header-container">
         <h2>Hello, Andrei</h2>
-        <img src="images/avatar.png" alt="avatar" class="right-aligned-image" />
+        <img src="images/avatar.png" alt="avatar" />
       </div>
       <p>Let's make this day productive.</p>
     </div>
     <section class="mytask-section">
       <div class="task-container">
         <h2>My Task</h2>
+      </div>
+      <div class="task-grid">
+        <div class="task-completed">
+          <div class="task-completed-details">
+            <img src="images/mac.png" alt="avatar" />
+
+            <p>Completed</p>
+            <p>86 tasks</p>
+          </div>
+          <div class="task-completed-icons">
+            <i class="bi bi-arrow-right-short"></i>
+          </div>
+        </div>
+        <div class="task-pending">
+          <div class="task-pending-details">
+            <i class="bi bi-clock" id="clock-icon"></i>
+
+            <p>Pending</p>
+            <p>15 tasks</p>
+          </div>
+          <div class="task-completed-icons">
+            <i class="bi bi-arrow-right-short" id="pending-icon"></i>
+          </div>
+        </div>
+        <div class="task-canceled">
+          <div class="task-pending-details">
+            <i class="bi bi-bookmark-x" id="canceled-icon"></i>
+            <p>Canceled</p>
+            <p>15 tasks</p>
+          </div>
+          <div class="task-completed-icons">
+            <i class="bi bi-arrow-right-short" id="pending-icon"></i>
+          </div>
+        </div>
+        <div class="task-ongoing">
+          <div class="task-completed-details">
+            <img src="images/files.png" alt="avatar" />
+
+            <p>On Going</p>
+            <p>67 tasks</p>
+          </div>
+          <div class="task-completed-icons">
+            <i class="bi bi-arrow-right-short"></i>
+          </div>
+        </div>
       </div>
     </section>
     <section class="todaytask-section">
@@ -26,16 +72,171 @@
       </div>
       <div class="task">
         <div class="task-details">
-          <p class="task-title">Cleaning clothes</p>
+          <div class="task-title">
+            <p>Cleaning clothes</p>
+            <i class="bi bi-three-dots-vertical"></i>
+          </div>
           <p class="task-time">07:00 - 07:15</p>
+        </div>
+        <div class="task-tags">
+          <p>Home</p>
+          <p>Urgent</p>
         </div>
       </div>
       <div class="task">
         <div class="task-details">
-          <p class="task-title">Wash dishes</p>
+          <div class="task-title">
+            <p>Wash dishes</p>
+            <i class="bi bi-three-dots-vertical"></i>
+          </div>
           <p class="task-time">07:30 - 08:00</p>
+        </div>
+        <div class="task-tags">
+          <p>Home</p>
+          <p>Urgent</p>
         </div>
       </div>
     </section>
+    <nav>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M2.39999 13.713C2.39999 8.082 3.01399 8.475 6.31899 5.41C7.76499 4.246 10.015 2 11.958 2C13.9 2 16.195 4.235 17.654 5.41C20.959 8.475 21.572 8.082 21.572 13.713C21.572 22 19.613 22 11.986 22C4.35899 22 2.39999 22 2.39999 13.713Z"
+          fill="#5B67CA"
+        />
+        <path
+          d="M9.0787 16.1357H14.8937"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M3.61 12C3.61 18.937 5.708 21.25 12.001 21.25C18.295 21.25 20.392 18.937 20.392 12C20.392 5.063 18.295 2.75 12.001 2.75C5.708 2.75 3.61 5.063 3.61 12Z"
+          stroke="#C6CEDD"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M15.5958 15.6963H8.37579"
+          stroke="#C6CEDD"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M15.5958 11.9365H8.37579"
+          stroke="#C6CEDD"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M11.131 8.17725H8.37601"
+          stroke="#C6CEDD"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="50"
+        height="50"
+        viewBox="0 0 50 50"
+        fill="none"
+      >
+        <!-- Your first SVG content here -->
+        <circle cx="25" cy="25" r="25" fill="#5B67CA" />
+
+        <!-- Embedding the second SVG -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
+          fill="none"
+          x="11"
+          y="11"
+        >
+          <path
+            d="M14 7C14.2321 7 14.4546 7.09219 14.6187 7.25628C14.7828 7.42038 14.875 7.64294 14.875 7.875V13.125H20.125C20.3571 13.125 20.5796 13.2172 20.7437 13.3813C20.9078 13.5454 21 13.7679 21 14C21 14.2321 20.9078 14.4546 20.7437 14.6187C20.5796 14.7828 20.3571 14.875 20.125 14.875H14.875V20.125C14.875 20.3571 14.7828 20.5796 14.6187 20.7437C14.4546 20.9078 14.2321 21 14 21C13.7679 21 13.5454 20.9078 13.3813 20.7437C13.2172 20.5796 13.125 20.3571 13.125 20.125V14.875H7.875C7.64294 14.875 7.42038 14.7828 7.25628 14.6187C7.09219 14.4546 7 14.2321 7 14C7 13.7679 7.09219 13.5454 7.25628 13.3813C7.42038 13.2172 7.64294 13.125 7.875 13.125H13.125V7.875C13.125 7.64294 13.2172 7.42038 13.3813 7.25628C13.5454 7.09219 13.7679 7 14 7Z"
+            fill="white"
+          />
+        </svg>
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M6.9171 14.854L9.9101 10.965L13.3241 13.645L16.2531 9.86499"
+          stroke="#C6CEDD"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M19.6671 2.3501C20.7291 2.3501 21.5891 3.2101 21.5891 4.2721C21.5891 5.3331 20.7291 6.1941 19.6671 6.1941C18.6051 6.1941 17.7451 5.3331 17.7451 4.2721C17.7451 3.2101 18.6051 2.3501 19.6671 2.3501Z"
+          stroke="#C6CEDD"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M20.7555 9.26898C20.8885 10.164 20.9495 11.172 20.9495 12.303C20.9495 19.241 18.6375 21.553 11.6995 21.553C4.7625 21.553 2.4495 19.241 2.4495 12.303C2.4495 5.36598 4.7625 3.05298 11.6995 3.05298C12.8095 3.05298 13.8005 3.11198 14.6825 3.23998"
+          stroke="#C6CEDD"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M7.3057 14.5743H16.8987"
+          stroke="#C6CEDD"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M2.5 7.79836C2.5 5.35646 3.75 3.25932 6.122 2.77265C8.493 2.28503 10.295 2.4536 11.792 3.26122C13.29 4.06884 12.861 5.26122 14.4 6.13646C15.94 7.01265 18.417 5.69646 20.035 7.44217C21.729 9.26979 21.72 12.0755 21.72 13.8641C21.72 20.6603 17.913 21.1993 12.11 21.1993C6.307 21.1993 2.5 20.7288 2.5 13.8641V7.79836Z"
+          stroke="#C6CEDD"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </nav>
   </body>
 </html>
