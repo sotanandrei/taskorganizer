@@ -1,6 +1,5 @@
 /* FONTS */
 @import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap");
-/* ICONS */
 body {
   font-family: "Hind Siliguri", sans-serif;
   margin: 0;
@@ -20,6 +19,12 @@ p {
 /* HEADER CONTAINER */
 .container {
   padding: 2rem 2rem 0 2rem;
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    padding: 2rem 10rem 0 10rem;
+  }
 }
 
 .container p {
@@ -42,6 +47,7 @@ p {
 .mytask-section {
   padding: 2rem 2rem 0 2rem;
 }
+
 .task-container {
   display: flex;
   justify-content: space-between;
@@ -95,6 +101,9 @@ p {
   top: 10px;
   left: 125px;
   font-size: 1.5rem;
+  color: #12175e;
+}
+a:-webkit-any-link {
   color: #12175e;
 }
 .task-pending {
@@ -234,4 +243,19 @@ nav i {
   font-size: 1.5rem;
   font-weight: 400;
   color: #5b67ca;
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    padding: 2rem 10rem 0 10rem;
+  }
+  .mytask-section {
+    padding: 2rem 10rem 0 10rem;
+  }
+  .todaytask-section {
+    padding: 2rem 10rem 0 10rem;
+  }
+  .task-tags > p {
+    font-size: 0.75rem;
+  }
 }

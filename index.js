@@ -32,6 +32,26 @@ app.get("/account", (req, res) => {
   res.render(__dirname + "/views/account.ejs");
 });
 
+// completed
+app.get("/completed", (req, res) => {
+  res.render(__dirname + "/views/completed.ejs");
+});
+
+// pending
+app.get("/pending", (req, res) => {
+  res.render(__dirname + "/views/pending.ejs");
+});
+
+// canceled
+app.get("/canceled", (req, res) => {
+  res.render(__dirname + "/views/canceled.ejs");
+});
+
+// ongoing
+app.get("/ongoing", (req, res) => {
+  res.render(__dirname + "/views/ongoing.ejs");
+});
+
 // port
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
