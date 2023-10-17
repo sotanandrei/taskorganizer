@@ -258,4 +258,7 @@ nav i {
   .task-tags > p {
     font-size: 0.75rem;
   }
+  .task-details {
+    width: 95%;
+  }
 }
