@@ -295,6 +295,7 @@ nav i {
 .form-item {
   width: 100%;
   margin-top: 1rem;
+  position: relative;
 }
 .form-item > input {
   width: 100%;
@@ -336,6 +337,12 @@ nav i {
   color: #8a8bb3;
   font-size: 14px;
   font-weight: 500;
+}
+
+.form-item svg {
+  position: absolute;
+  right: 0;
+  top: 50px;
 }
 
 .form-tags {
