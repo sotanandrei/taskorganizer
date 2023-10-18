@@ -2,6 +2,8 @@
 const modal = document.getElementById("myModal");
 const openModalBtn = document.getElementById("openModalBtn");
 const closeModalBtn = document.getElementById("closeModalBtn");
+const tags = document.querySelectorAll(".tag");
+console.log(tags);
 
 // When the Open Modal button is clicked, display the modal
 openModalBtn.addEventListener("click", () => {
@@ -19,3 +21,10 @@ window.addEventListener("click", (event) => {
     modal.style.display = "none";
   }
 });
+
+// Add event listeners to all tags
+for (let i = 0; i < tags.length; i++) {
+  tags[i].addEventListener("click", () => {
+    tags[i].classList.toggle("bordered");
+  });
+}

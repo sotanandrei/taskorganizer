@@ -103,8 +103,79 @@
     </section>
     <div id="myModal" class="modal">
       <div class="modal-content">
-        <span class="close" id="closeModalBtn">&times;</span>
-        <p>This is a simple modal.</p>
+        <div class="modal-centered-container">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            id="closeModalBtn"
+          >
+            <path
+              d="M15.5 19C15.5 19 8.5 14.856 8.5 12C8.5 9.145 15.5 5 15.5 5"
+              stroke="#10275A"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <p class="centered-text">Add Task</p>
+        </div>
+        <div class="modal-form">
+          <form>
+            <div class="form-item">
+              <label for="title">Title</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Enter task title"
+              />
+            </div>
+
+            <div class="form-item">
+              <label for="date">Date</label>
+              <input
+                type="text"
+                id="date"
+                name="date"
+                placeholder="Enter task date"
+              />
+            </div>
+
+            <div class="form-item">
+              <label for="description">Description</label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="Enter task description"
+              />
+            </div>
+
+            <div class="form-item">
+              <p>Priority</p>
+              <div class="form-tags">
+                <div class="tag tag-high">
+                  <input type="checkbox" id="tagHigh" name="taghigh" />
+                  <p>High</p>
+                </div>
+                <div class="tag tag-medium">
+                  <input type="checkbox" id="tagMedium" name="tagmedium" />
+                  <p>Medium</p>
+                </div>
+                <div class="tag tag-low">
+                  <input type="checkbox" id="tagLow" name="taglow" />
+                  <p>Low</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-item">
+              <input type="submit" value="Create" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <nav>
