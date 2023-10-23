@@ -70,12 +70,13 @@
           </div>
 
           <div class="modal-body p-5 pt-0">
-            <form class="">
+            <form action="/auth/register" method="POST">
               <div class="form-floating mb-3">
                 <input
                   type="text"
                   class="form-control rounded-3"
                   id="signupUsername"
+                  name="username"
                   placeholder="Username"
                 />
                 <label for="signupUsername"
@@ -122,6 +123,7 @@
                   type="password"
                   class="form-control rounded-3"
                   id="signupPassword"
+                  name="password"
                   placeholder="Password"
                 />
                 <label for="signupPassword"
@@ -218,12 +220,13 @@
           </div>
 
           <div class="modal-body p-5 pt-0 pb-3">
-            <form class="form-login">
+            <form class="form-login" action="/auth/login" method="POST">
               <div class="form-floating mb-3">
                 <input
-                  type="email"
+                  type="text"
                   class="form-control rounded-3"
                   id="loginEmail"
+                  name="username"
                   placeholder="name@example.com"
                 />
                 <label for="loginEmail"
@@ -259,6 +262,7 @@
                   type="password"
                   class="form-control rounded-3"
                   id="loginPassword"
+                  name="password"
                   placeholder="Password"
                 />
                 <label for="loginPassword"

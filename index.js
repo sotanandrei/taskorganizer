@@ -1,11 +1,20 @@
+import bodyParser from "body-parser";
+import "dotenv/config";
 import express from "express";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import "./helpers/init_mongodb.js";
+import AuthRoute from "./routes/auth.route.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // app configuration
 const app = express();
 const port = 3000;
+
+// Middleware
+
+//bodyParser
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static(__dirname + "/public"));
@@ -22,6 +31,9 @@ app.use(
   express.static(__dirname + "/node_modules/bootstrap-icons/font/")
 );
 
+// authentication route
+app.use("/auth", AuthRoute);
+
 // index page
 app.get("/", (req, res) => {
   res.render(__dirname + "/views/index.ejs");
@@ -32,22 +44,22 @@ app.get("/account", (req, res) => {
   res.render(__dirname + "/views/account.ejs");
 });
 
-// completed
+// completed page
 app.get("/completed", (req, res) => {
   res.render(__dirname + "/views/completed.ejs");
 });
 
-// pending
+// pending page
 app.get("/pending", (req, res) => {
   res.render(__dirname + "/views/pending.ejs");
 });
 
-// canceled
+// canceled page
 app.get("/canceled", (req, res) => {
   res.render(__dirname + "/views/canceled.ejs");
 });
 
-// ongoing
+// ongoing page
 app.get("/ongoing", (req, res) => {
   res.render(__dirname + "/views/ongoing.ejs");
 });
