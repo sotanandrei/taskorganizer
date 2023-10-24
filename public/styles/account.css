@@ -35,12 +35,18 @@ p {
 .header-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .header-container > h2 {
   color: #12175e;
   font-weight: 600;
+}
+
+.avatar-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 /* My tasks Section */

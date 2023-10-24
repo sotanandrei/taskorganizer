@@ -1,6 +1,9 @@
 import bodyParser from "body-parser";
+import MongoStore from "connect-mongo";
 import "dotenv/config";
 import express from "express";
+import session from "express-session";
+import passport from "passport";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import "./helpers/init_mongodb.js";
@@ -30,6 +33,18 @@ app.use(
   "/bootstrap-icons",
   express.static(__dirname + "/node_modules/bootstrap-icons/font/")
 );
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+    }),
+  })
+);
+app.use(passport.authenticate("session"));
 
 // authentication route
 app.use("/auth", AuthRoute);

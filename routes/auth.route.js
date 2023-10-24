@@ -1,38 +1,104 @@
+import crypto from "crypto";
 import express from "express";
-import path from "path";
+import passport from "passport";
+import LocalStrategy from "passport-local";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 import { User } from "../models/user.model.js";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = express.Router();
 
-router.post("/register", async (req, res, next) => {
-  try {
-    const newUser = new User({
-      username: req.body.username,
-      password: req.body.password,
-    });
-    await newUser.save();
-    // Redirect or render a response upon successful user creation
-    res.render(path.join(__dirname, "../views/index.ejs"));
-    console.log("Succesfully created user.");
-  } catch (error) {
-    // Handle any errors that occur during the user creation process
-    // For example, you can send an error response or render an error page.
-    console.error("Error creating user:", error);
-    res.status(500).send("An error occurred while registering the user.");
-  }
+passport.use(
+  new LocalStrategy(async (username, password, cb) => {
+    try {
+      const foundUser = await User.findOne({ username: username }).exec();
+      if (foundUser === null) {
+        console.log("User not found");
+        return cb(null, false, { message: "Incorrect username or password." });
+      }
+      crypto.pbkdf2(
+        password,
+        foundUser.salt,
+        310000,
+        32,
+        "sha256",
+        (err, hashedPassword) => {
+          if (err) {
+            return cb(err);
+          }
+          if (
+            !crypto.timingSafeEqual(foundUser.hashed_password, hashedPassword)
+          ) {
+            console.log("incorrect password");
+            return cb(null, false, {
+              message: "Incorrect username or password.",
+            });
+          }
+          console.log("correct password");
+          return cb(null, foundUser);
+        }
+      );
+    } catch (error) {
+      return cb(error);
+    }
+  })
+);
+
+passport.serializeUser(function (user, cb) {
+  process.nextTick(function () {
+    cb(null, { id: user.id, username: user.username });
+  });
 });
 
-router.post("/login", async (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const foundUser = await User.findOne({ username: username }).exec();
-  console.log(foundUser);
-  if (foundUser !== null) {
-    if (foundUser.password === password) {
-      res.render(path.join(__dirname, "../views/account.ejs"));
+passport.deserializeUser(function (user, cb) {
+  process.nextTick(function () {
+    return cb(null, user);
+  });
+});
+
+router.post("/register", async (req, res, next) => {
+  var salt = crypto.randomBytes(16);
+  crypto.pbkdf2(
+    req.body.password,
+    salt,
+    310000,
+    32,
+    "sha256",
+    async function (err, hashedPassword) {
+      if (err) {
+        return next(err);
+      }
+      try {
+        const newUser = new User({
+          username: req.body.username,
+          hashed_password: hashedPassword,
+          salt: salt,
+        });
+
+        await newUser.save();
+        res.redirect("/");
+      } catch (error) {
+        res.status(500).send("Error registering user");
+      }
     }
-  } else {
-    res.render(path.join(__dirname, "../views/index.ejs"));
-  }
+  );
+});
+
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/account",
+    failureRedirect: "/",
+  })
+);
+
+router.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 });
 
 export default router;
