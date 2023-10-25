@@ -77,3 +77,8 @@ window.addEventListener("click", function (event) {
     }
   }
 });
+
+function hideErrorModal() {
+  var modal = document.getElementById("errorModal");
+  modal.style.display = "none";
+}

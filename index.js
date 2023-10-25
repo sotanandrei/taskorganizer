@@ -7,6 +7,7 @@ import passport from "passport";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import "./helpers/init_mongodb.js";
+import { User } from "./models/user.model.js";
 import AuthRoute from "./routes/auth.route.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -51,32 +52,60 @@ app.use("/auth", AuthRoute);
 
 // index page
 app.get("/", (req, res) => {
-  res.render(__dirname + "/views/index.ejs");
+  if (req.isAuthenticated()) {
+    res.redirect("/account");
+  } else {
+    res.render(__dirname + "/views/index.ejs");
+  }
 });
 
 // account page
-app.get("/account", (req, res) => {
-  res.render(__dirname + "/views/account.ejs");
+app.get("/account", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const userId = req.user.id;
+    const username = await User.findById(userId).exec();
+    res.render(__dirname + "/views/account.ejs", {
+      user: username.username,
+    });
+  } else {
+    res.redirect("/");
+  }
 });
 
 // completed page
 app.get("/completed", (req, res) => {
-  res.render(__dirname + "/views/completed.ejs");
+  if (req.isAuthenticated()) {
+    res.render(__dirname + "/views/completed.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 // pending page
 app.get("/pending", (req, res) => {
-  res.render(__dirname + "/views/pending.ejs");
+  if (req.isAuthenticated()) {
+    res.render(__dirname + "/views/pending.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 // canceled page
 app.get("/canceled", (req, res) => {
-  res.render(__dirname + "/views/canceled.ejs");
+  if (req.isAuthenticated()) {
+    res.render(__dirname + "/views/canceled.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 // ongoing page
 app.get("/ongoing", (req, res) => {
-  res.render(__dirname + "/views/ongoing.ejs");
+  if (req.isAuthenticated()) {
+    res.render(__dirname + "/views/ongoing.ejs");
+  } else {
+    res.redirect("/");
+  }
 });
 
 // port

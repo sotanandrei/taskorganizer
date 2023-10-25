@@ -316,6 +316,16 @@
         </div>
       </div>
     </div>
+    <% if (typeof message !== 'undefined') { %>
+    <div id="errorModal" class="error-modal">
+      <div class="error-modal-content">
+        <p><%= message %></p>
+        <button class="error-close-button" onclick="hideErrorModal()">
+          Close
+        </button>
+      </div>
+    </div>
+    <% } %>
     <script src="/js/index.js"></script>
   </body>
 </html>

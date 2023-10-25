@@ -98,3 +98,49 @@ body {
   justify-content: center; /* Horizontal centering */
   align-items: center;
 }
+
+/* ERROR MODAL */
+.error-modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-modal-content {
+  background-color: #fff;
+  width: 80%;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.error-modal-content p {
+  color: #10275a;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.error-close-button {
+  border-radius: 14px;
+  background: #5b67ca;
+  padding: 10px 20px;
+  border: none;
+  color: #feffff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 992px) {
+  .error-modal-content {
+    max-width: 400px;
+  }
+}
