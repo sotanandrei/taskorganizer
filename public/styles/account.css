@@ -231,6 +231,11 @@ a:-webkit-any-link {
   text-align: right;
 }
 
+.todaytask-section > p {
+  color: #575757;
+  font-weight: 400;
+}
+
 nav {
   position: fixed;
   bottom: 0;

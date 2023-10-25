@@ -28,12 +28,10 @@ passport.use(
           if (
             !crypto.timingSafeEqual(foundUser.hashed_password, hashedPassword)
           ) {
-            console.log("incorrect password");
             return cb(null, false, {
               message: "Incorrect username or password.",
             });
           }
-          console.log("correct password");
           return cb(null, foundUser);
         }
       );
@@ -107,14 +105,6 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-// router.post(
-//   "/login",
-//   passport.authenticate("local", {
-//     successRedirect: "/account",
-//     failureRedirect: "/",
-//   })
-// );
-
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user) => {
     if (err) {
@@ -123,7 +113,7 @@ router.post("/login", (req, res, next) => {
     if (!user) {
       // Authentication failed
       return res.render(path.join(__dirname, "../views/index.ejs"), {
-        message: "Authentication failed.",
+        message: "Incorrect username and/or password.",
       });
     }
 

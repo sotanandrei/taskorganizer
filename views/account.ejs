@@ -78,32 +78,26 @@
         <h2>Today's task</h2>
         <p>View all</p>
       </div>
+      <% if (tasks.length > 0) { %> <% tasks.forEach(task => { %>
       <div class="task">
         <div class="task-details">
           <div class="task-title">
-            <p>Cleaning clothes</p>
+            <p><%= task.title %></p>
             <i class="bi bi-three-dots-vertical"></i>
           </div>
-          <p class="task-time">07:00 - 07:15</p>
+          <p class="task-time">
+            <%= task.date.toLocaleDateString('en-US', { year: 'numeric', month:
+            'short', day: '2-digit' }) %>
+          </p>
         </div>
         <div class="task-tags">
           <p>Home</p>
           <p>Urgent</p>
         </div>
       </div>
-      <div class="task">
-        <div class="task-details">
-          <div class="task-title">
-            <p>Wash dishes</p>
-            <i class="bi bi-three-dots-vertical"></i>
-          </div>
-          <p class="task-time">07:30 - 08:00</p>
-        </div>
-        <div class="task-tags">
-          <p>Home</p>
-          <p>Urgent</p>
-        </div>
-      </div>
+      <% }); %> <% } else { %>
+      <p>You don't have any tasks yet. Try adding one with the button below.</p>
+      <% } %>
     </section>
     <div id="myModal" class="modal">
       <div class="modal-content">

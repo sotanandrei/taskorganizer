@@ -7,6 +7,7 @@ import passport from "passport";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import "./helpers/init_mongodb.js";
+import { Task } from "./models/task.model.js";
 import { User } from "./models/user.model.js";
 import AuthRoute from "./routes/auth.route.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -64,8 +65,10 @@ app.get("/account", async (req, res) => {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
     const username = await User.findById(userId).exec();
+    const tasks = await Task.find({ user_id: userId }).exec();
     res.render(__dirname + "/views/account.ejs", {
       user: username.username,
+      tasks: tasks,
     });
   } else {
     res.redirect("/");
