@@ -28,3 +28,8 @@ for (let i = 0; i < tags.length; i++) {
     tags[i].classList.toggle("bordered");
   });
 }
+
+function hideErrorModal() {
+  var modal = document.getElementById("errorModal");
+  modal.style.display = "none";
+}

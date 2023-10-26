@@ -96,7 +96,10 @@
         </div>
       </div>
       <% }); %> <% } else { %>
-      <p>You don't have any tasks yet. Try adding one with the button below.</p>
+      <p>
+        You don't have any tasks for today. Try adding one with the button
+        below.
+      </p>
       <% } %>
     </section>
     <div id="myModal" class="modal">
@@ -121,7 +124,7 @@
           <p class="centered-text">Add Task</p>
         </div>
         <div class="modal-form">
-          <form>
+          <form action="/createtask" method="POST">
             <div class="form-item">
               <label for="title">Title</label>
               <input
@@ -399,6 +402,16 @@
         />
       </svg>
     </nav>
+    <% if (typeof message !== 'undefined') { %>
+    <div id="errorModal" class="error-modal">
+      <div class="error-modal-content">
+        <p><%= message %></p>
+        <button class="error-close-button" onclick="hideErrorModal()">
+          Close
+        </button>
+      </div>
+    </div>
+    <% } %>
     <script src="/js/account.js"></script>
   </body>
 </html>

@@ -7,6 +7,7 @@ import passport from "passport";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import "./helpers/init_mongodb.js";
+import { isValidDateInput } from "./helpers/isdatevalid.js";
 import { Task } from "./models/task.model.js";
 import { User } from "./models/user.model.js";
 import AuthRoute from "./routes/auth.route.js";
@@ -64,8 +65,15 @@ app.get("/", (req, res) => {
 app.get("/account", async (req, res) => {
   if (req.isAuthenticated()) {
     const userId = req.user.id;
+    const today = new Date();
+    const tomorrow = new Date(today);
+    today.setHours(3, 0, 0, 0);
+    tomorrow.setHours(26, 59, 59, 999); // Increment the day by 1
     const username = await User.findById(userId).exec();
-    const tasks = await Task.find({ user_id: userId }).exec();
+    const tasks = await Task.find({
+      user_id: userId,
+      date: { $gte: today, $lte: tomorrow },
+    }).exec();
     res.render(__dirname + "/views/account.ejs", {
       user: username.username,
       tasks: tasks,
@@ -73,6 +81,53 @@ app.get("/account", async (req, res) => {
   } else {
     res.redirect("/");
   }
+});
+
+app.post("/createtask", async (req, res) => {
+  const userId = req.user.id;
+  try {
+    var username = await User.findById(userId).exec();
+    var tasks = await Task.find({ user_id: userId }).exec();
+  } catch (error) {
+    return res.status(500).send("Error searching for user.");
+  }
+
+  if (!req.body.title || !req.body.date || !req.body.description) {
+    return res.render(__dirname + "/views/account.ejs", {
+      message: "All inputs must be filled.",
+      user: username.username,
+      tasks: tasks,
+    });
+  }
+  const dateString = req.body.date;
+  if (!isValidDateInput(dateString)) {
+    return res.render(__dirname + "/views/account.ejs", {
+      message: "Invalid date format.",
+      user: username.username,
+      tasks: tasks,
+    });
+  }
+  const [month, day, year] = dateString.split("/").map(Number);
+  const newDate = new Date(year, month - 1, day);
+  newDate.setHours(23, 59, 59, 999); // Set time to 23:59:59.999
+
+  // Save new task
+  const newTask = new Task({
+    title: req.body.title,
+    date: newDate,
+    description: req.body.description,
+    user_id: req.user.id,
+  });
+  try {
+    await newTask.save();
+  } catch (error) {
+    return res.render(__dirname + "/views/account.ejs", {
+      message: "Task creation failed.",
+      user: username.username,
+      tasks: tasks,
+    });
+  }
+  return res.redirect("/account");
 });
 
 // completed page
