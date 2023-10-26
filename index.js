@@ -70,13 +70,33 @@ app.get("/account", async (req, res) => {
     today.setHours(3, 0, 0, 0);
     tomorrow.setHours(26, 59, 59, 999); // Increment the day by 1
     const username = await User.findById(userId).exec();
-    const tasks = await Task.find({
+    const todayTasks = await Task.find({
       user_id: userId,
       date: { $gte: today, $lte: tomorrow },
     }).exec();
+    const ongoingTasks = await Task.find({
+      user_id: userId,
+      ongoing: true,
+    }).exec();
+    const canceledTasks = await Task.find({
+      user_id: userId,
+      canceled: true,
+    }).exec();
+    const pendingTasks = await Task.find({
+      user_id: userId,
+      pending: true,
+    }).exec();
+    const completedTasks = await Task.find({
+      user_id: userId,
+      completed: true,
+    }).exec();
     res.render(__dirname + "/views/account.ejs", {
       user: username.username,
-      tasks: tasks,
+      tasks: todayTasks,
+      ongoing: ongoingTasks,
+      completed: completedTasks,
+      pending: pendingTasks,
+      canceled: canceledTasks,
     });
   } else {
     res.redirect("/");
@@ -85,6 +105,7 @@ app.get("/account", async (req, res) => {
 
 app.post("/createtask", async (req, res) => {
   const userId = req.user.id;
+  console.log(req.body);
   try {
     var username = await User.findById(userId).exec();
     var tasks = await Task.find({ user_id: userId }).exec();
@@ -111,12 +132,25 @@ app.post("/createtask", async (req, res) => {
   const newDate = new Date(year, month - 1, day);
   newDate.setHours(23, 59, 59, 999); // Set time to 23:59:59.999
 
+  const tags = [];
+  if (req.body.taghigh === "on") {
+    tags.push("High");
+  }
+  if (req.body.tagmedium === "on") {
+    tags.push("Medium");
+  }
+  if (req.body.taglow === "on") {
+    tags.push("Low");
+  }
+
   // Save new task
   const newTask = new Task({
     title: req.body.title,
     date: newDate,
     description: req.body.description,
     user_id: req.user.id,
+    tags: tags,
+    ongoing: true,
   });
   try {
     await newTask.save();
@@ -158,11 +192,22 @@ app.get("/canceled", (req, res) => {
 });
 
 // ongoing page
-app.get("/ongoing", (req, res) => {
+app.get("/ongoing", async (req, res) => {
   if (req.isAuthenticated()) {
-    res.render(__dirname + "/views/ongoing.ejs");
+    const userId = req.user.id;
+    try {
+      var tasks = await Task.find({
+        user_id: userId,
+        ongoing: true,
+      }).exec();
+    } catch (err) {
+      console.log(err);
+      return res.redirect("/");
+    }
+
+    return res.render(__dirname + "/views/ongoing.ejs", { tasks: tasks });
   } else {
-    res.redirect("/");
+    return res.redirect("/");
   }
 });
 

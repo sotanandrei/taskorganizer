@@ -29,7 +29,11 @@
             <img src="images/mac.png" alt="avatar" />
 
             <p>Completed</p>
-            <p>86 tasks</p>
+            <% if (completed.length !== 1) { %>
+            <p><%= completed.length %> tasks</p>
+            <% } else { %>
+            <p><%= completed.length %> task</p>
+            <% } %>
           </div>
           <div class="task-completed-icons">
             <a href="/completed"><i class="bi bi-arrow-right-short"></i></a>
@@ -40,7 +44,11 @@
             <i class="bi bi-clock" id="clock-icon"></i>
 
             <p>Pending</p>
-            <p>15 tasks</p>
+            <% if (pending.length !== 1) { %>
+            <p><%= pending.length %> tasks</p>
+            <% } else { %>
+            <p><%= pending.length %> task</p>
+            <% } %>
           </div>
           <div class="task-completed-icons">
             <a href="/pending"
@@ -52,7 +60,11 @@
           <div class="task-pending-details">
             <i class="bi bi-bookmark-x" id="canceled-icon"></i>
             <p>Canceled</p>
-            <p>15 tasks</p>
+            <% if (canceled.length !== 1) { %>
+            <p><%= canceled.length %> tasks</p>
+            <% } else { %>
+            <p><%= canceled.length %> task</p>
+            <% } %>
           </div>
           <div class="task-completed-icons">
             <a href="/canceled"
@@ -65,7 +77,11 @@
             <img src="images/files.png" alt="avatar" />
 
             <p>On Going</p>
-            <p>67 tasks</p>
+            <% if (ongoing.length !== 1) { %>
+            <p><%= ongoing.length %> tasks</p>
+            <% } else { %>
+            <p><%= ongoing.length %> task</p>
+            <% } %>
           </div>
           <div class="task-completed-icons">
             <a href="/ongoing"><i class="bi bi-arrow-right-short"></i></a>
@@ -91,8 +107,9 @@
           </p>
         </div>
         <div class="task-tags">
-          <p>Home</p>
-          <p>Urgent</p>
+          <% task.tags.forEach(tag => { %>
+          <p><%= tag %></p>
+          <% }) %>
         </div>
       </div>
       <% }); %> <% } else { %>
@@ -238,18 +255,18 @@
             <div class="form-item">
               <p>Priority</p>
               <div class="form-tags">
-                <div class="tag tag-high">
+                <label class="tag tag-high">
                   <input type="checkbox" id="tagHigh" name="taghigh" />
-                  <p>High</p>
-                </div>
-                <div class="tag tag-medium">
+                  High
+                </label>
+                <label class="tag tag-medium">
                   <input type="checkbox" id="tagMedium" name="tagmedium" />
-                  <p>Medium</p>
-                </div>
-                <div class="tag tag-low">
+                  Medium
+                </label>
+                <label class="tag tag-low">
                   <input type="checkbox" id="tagLow" name="taglow" />
-                  <p>Low</p>
-                </div>
+                  Low
+                </label>
               </div>
             </div>
             <div class="form-item">

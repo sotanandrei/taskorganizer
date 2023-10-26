@@ -24,8 +24,9 @@ window.addEventListener("click", (event) => {
 
 // Add event listeners to all tags
 for (let i = 0; i < tags.length; i++) {
-  tags[i].addEventListener("click", () => {
-    tags[i].classList.toggle("bordered");
+  tags[i].addEventListener("click", (event) => {
+    // Toggle the "bordered" class on the clicked element
+    event.target.classList.toggle("bordered");
   });
 }
 

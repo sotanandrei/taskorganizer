@@ -338,7 +338,7 @@ nav i {
   cursor: pointer;
 }
 
-.form-item label {
+.form-item > label {
   color: #8a8bb3;
   font-size: 14px;
   font-weight: 500;
