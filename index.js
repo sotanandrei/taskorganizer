@@ -3,6 +3,7 @@ import MongoStore from "connect-mongo";
 import "dotenv/config";
 import express from "express";
 import session from "express-session";
+import methodOverride from "method-override";
 import passport from "passport";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -18,6 +19,8 @@ const app = express();
 const port = 3000;
 
 // Middleware
+
+app.use(methodOverride("_method"));
 
 //bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -196,6 +199,18 @@ app.post("/createtask", async (req, res) => {
     });
   }
   return res.redirect("/account");
+});
+
+// DELETE a specific post by providing the post id
+app.delete("/deletetask/:id", async (req, res) => {
+  const taskId = req.params.id;
+  try {
+    await Task.findByIdAndDelete(taskId);
+  } catch (error) {
+    console.log(error);
+    res.redirect("/");
+  }
+  res.redirect("/ongoing");
 });
 
 // completed page
