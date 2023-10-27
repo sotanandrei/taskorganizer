@@ -142,7 +142,7 @@
               <div class="menu">
                 <ul>
                   <li>
-                    <a href="#"
+                    <a href="#" class="disableTaskLink"
                       ><svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -171,7 +171,7 @@
                     >
                   </li>
                   <li>
-                    <a href="#"
+                    <a href="#" class="editTaskLink"
                       ><svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -207,7 +207,7 @@
                     >
                   </li>
                   <li>
-                    <a href="#"
+                    <a href="#" class="deleteTaskLink"
                       ><svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -252,6 +252,194 @@
           <% task.tags.forEach(tag => { %>
           <p><%= tag %></p>
           <% }) %>
+        </div>
+        <div class="delete-modal">
+          <div class="delete-modal-content">
+            <p>Are you sure you want to delete this task?</p>
+            <form
+              method="POST"
+              action="/deletetask/<%= task.id %>?_method=DELETE"
+            >
+              <button type="submit" class="delete-button delete-yes-button">
+                Yes
+              </button>
+            </form>
+            <button class="delete-button delete-no-button">No</button>
+          </div>
+        </div>
+        <div class="disable-modal">
+          <div class="delete-modal-content">
+            <p>Are you sure you want to enable this task?</p>
+            <form
+              method="POST"
+              action="/enabletask/<%= task.id %>?_method=PATCH"
+            >
+              <button type="submit" class="delete-button delete-yes-button">
+                Yes
+              </button>
+            </form>
+            <button class="delete-button disable-no-button">No</button>
+          </div>
+        </div>
+        <div class="edit-modal">
+          <div class="modal-content">
+            <div class="modal-centered-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                class="editCloseBtn"
+              >
+                <path
+                  d="M15.5 19C15.5 19 8.5 14.856 8.5 12C8.5 9.145 15.5 5 15.5 5"
+                  stroke="#10275A"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p class="centered-text">Edit Task</p>
+            </div>
+            <div class="modal-form">
+              <form action="/edit/<%= task.id %>?_method=PATCH" method="POST">
+                <div class="form-item">
+                  <p>*Only enter what you want to edit.</p>
+                </div>
+                <div class="form-item">
+                  <label for="title">Title</label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Enter task title"
+                  />
+                </div>
+
+                <div class="form-item">
+                  <label for="date">Date</label>
+                  <input
+                    type="text"
+                    id="date"
+                    name="date"
+                    placeholder="mm/dd/yyyy"
+                  />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M2.57715 7.83688H17.4304"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M13.7017 11.0915H13.7094"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.004 11.0915H10.0117"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6.29816 11.0915H6.30588"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M13.7017 14.3302H13.7094"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.004 14.3302H10.0117"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6.29816 14.3302H6.30588"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M13.3696 1.66669V4.409"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M6.63795 1.66669V4.409"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M13.5319 2.98267H6.4758C4.02856 2.98267 2.5 4.34594 2.5 6.85185V14.3932C2.5 16.9385 4.02856 18.3333 6.4758 18.3333H13.5242C15.9791 18.3333 17.5 16.9622 17.5 14.4563V6.85185C17.5077 4.34594 15.9868 2.98267 13.5319 2.98267Z"
+                      stroke="#121355"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+
+                <div class="form-item">
+                  <label for="description">Description</label>
+                  <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    placeholder="Enter task description"
+                  />
+                </div>
+
+                <div class="form-item">
+                  <p>Priority</p>
+                  <div class="form-tags">
+                    <label class="tag tag-high">
+                      <input type="checkbox" id="tagHigh" name="taghigh" />
+                      High
+                    </label>
+                    <label class="tag tag-medium">
+                      <input type="checkbox" id="tagMedium" name="tagmedium" />
+                      Medium
+                    </label>
+                    <label class="tag tag-low">
+                      <input type="checkbox" id="tagLow" name="taglow" />
+                      Low
+                    </label>
+                  </div>
+                </div>
+                <div class="form-item">
+                  <input type="submit" value="Edit" />
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
       <% }); %> <% } else { %>

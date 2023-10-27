@@ -205,12 +205,84 @@ app.post("/createtask", async (req, res) => {
 app.delete("/deletetask/:id", async (req, res) => {
   const taskId = req.params.id;
   try {
-    await Task.findByIdAndDelete(taskId);
+    const task = await Task.findByIdAndDelete(taskId);
+    if (task.ongoing) {
+      var ongoing = true;
+    } else {
+      ongoing = false;
+    }
   } catch (error) {
     console.log(error);
-    res.redirect("/");
+    return res.status(500).send("Error deleting task.");
+  }
+  if (ongoing) {
+    return res.redirect("/ongoing");
+  } else {
+    return res.redirect("/pending");
+  }
+});
+
+// Disable a specific post by providing the post id
+app.patch("/disabletask/:id", async (req, res) => {
+  const taskId = req.params.id;
+  try {
+    await Task.findByIdAndUpdate(taskId, { ongoing: false, pending: true });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Error disabling task.");
   }
   res.redirect("/ongoing");
+});
+
+// Enable a specific post by providing the post id
+app.patch("/enabletask/:id", async (req, res) => {
+  const taskId = req.params.id;
+  try {
+    await Task.findByIdAndUpdate(taskId, { ongoing: true, pending: false });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Error enabling task.");
+  }
+  res.redirect("/pending");
+});
+
+// Edit a specific post by providing the post id
+app.patch("/edit/:id", async (req, res) => {
+  const taskId = req.params.id;
+
+  // check if there are updates to be made
+  let update = {};
+  if (req.body.title) update.title = req.body.title;
+  if (req.body.date) update.date = req.body.date;
+  if (req.body.description) update.description = req.body.description;
+  const tags = [];
+  if (req.body.taghigh === "on") {
+    tags.push("High");
+    update.tags = tags;
+  }
+  if (req.body.tagmedium === "on") {
+    tags.push("Medium");
+    update.tags = tags;
+  }
+  if (req.body.taglow === "on") {
+    tags.push("Low");
+    update.tags = tags;
+  }
+
+  // update task in database
+  try {
+    var task = await Task.findByIdAndUpdate(taskId, update);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Error editing task.");
+  }
+
+  //redirect depending on where user was before
+  if (task.ongoing) {
+    res.redirect("/ongoing");
+  } else {
+    res.redirect("/pending");
+  }
 });
 
 // completed page
