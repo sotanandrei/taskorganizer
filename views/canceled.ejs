@@ -128,11 +128,12 @@
       </div>
     </section>
     <section class="tasks-section">
+      <% if (tasks.length > 0) { %> <% tasks.forEach(task => { %>
       <div class="task">
         <div class="task-details">
           <div class="task-title">
             <p>
-              Take out clothes from washing machine
+              <%= task.title %>
               <i class="bi bi-bookmark-x" id="canceled-icon"></i>
             </p>
 
@@ -247,31 +248,20 @@
               </div>
             </div>
           </div>
-          <p class="task-time">13th of May</p>
+          <p class="task-time">
+            <%= task.date.toLocaleDateString('en-US', { year: 'numeric', month:
+            'short', day: '2-digit' }) %>
+          </p>
         </div>
         <div class="task-tags">
-          <p>Home</p>
-          <p>Urgent</p>
+          <% task.tags.forEach(tag => { %>
+          <p><%= tag %></p>
+          <% }) %>
         </div>
       </div>
-      <div class="task">
-        <div class="task-details">
-          <div class="task-title">
-            <p>
-              Work on HTML/CSS
-              <i class="bi bi-bookmark-x" id="canceled-icon"></i>
-            </p>
-
-            <i class="bi bi-three-dots-vertical"></i>
-          </div>
-          <p class="task-time">17th of May</p>
-        </div>
-        <div class="task-tags">
-          <p>Education</p>
-          <p>Personal</p>
-          <p>Urgent</p>
-        </div>
-      </div>
+      <% }); %> <% } else { %>
+      <p class="no-tasks-p">You don't have any canceled tasks.</p>
+      <% } %>
     </section>
     <script src="/js/completed.js"></script>
   </body>

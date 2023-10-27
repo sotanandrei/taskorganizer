@@ -105,10 +105,32 @@ app.get("/account", async (req, res) => {
 
 app.post("/createtask", async (req, res) => {
   const userId = req.user.id;
-  console.log(req.body);
+  const today = new Date();
+  const tomorrow = new Date(today);
+  today.setHours(3, 0, 0, 0);
+  tomorrow.setHours(26, 59, 59, 999); // Increment the day by 1
   try {
     var username = await User.findById(userId).exec();
-    var tasks = await Task.find({ user_id: userId }).exec();
+    var todayTasks = await Task.find({
+      user_id: userId,
+      date: { $gte: today, $lte: tomorrow },
+    }).exec();
+    var ongoingTasks = await Task.find({
+      user_id: userId,
+      ongoing: true,
+    }).exec();
+    var canceledTasks = await Task.find({
+      user_id: userId,
+      canceled: true,
+    }).exec();
+    var pendingTasks = await Task.find({
+      user_id: userId,
+      pending: true,
+    }).exec();
+    var completedTasks = await Task.find({
+      user_id: userId,
+      completed: true,
+    }).exec();
   } catch (error) {
     return res.status(500).send("Error searching for user.");
   }
@@ -117,7 +139,11 @@ app.post("/createtask", async (req, res) => {
     return res.render(__dirname + "/views/account.ejs", {
       message: "All inputs must be filled.",
       user: username.username,
-      tasks: tasks,
+      tasks: todayTasks,
+      ongoing: ongoingTasks,
+      completed: completedTasks,
+      pending: pendingTasks,
+      canceled: canceledTasks,
     });
   }
   const dateString = req.body.date;
@@ -125,7 +151,11 @@ app.post("/createtask", async (req, res) => {
     return res.render(__dirname + "/views/account.ejs", {
       message: "Invalid date format.",
       user: username.username,
-      tasks: tasks,
+      tasks: todayTasks,
+      ongoing: ongoingTasks,
+      completed: completedTasks,
+      pending: pendingTasks,
+      canceled: canceledTasks,
     });
   }
   const [month, day, year] = dateString.split("/").map(Number);
@@ -158,34 +188,71 @@ app.post("/createtask", async (req, res) => {
     return res.render(__dirname + "/views/account.ejs", {
       message: "Task creation failed.",
       user: username.username,
-      tasks: tasks,
+      tasks: todayTasks,
+      ongoing: ongoingTasks,
+      completed: completedTasks,
+      pending: pendingTasks,
+      canceled: canceledTasks,
     });
   }
   return res.redirect("/account");
 });
 
 // completed page
-app.get("/completed", (req, res) => {
+app.get("/completed", async (req, res) => {
   if (req.isAuthenticated()) {
-    res.render(__dirname + "/views/completed.ejs");
+    const userId = req.user.id;
+    try {
+      var tasks = await Task.find({
+        user_id: userId,
+        completed: true,
+      }).exec();
+    } catch (err) {
+      console.log(err);
+      return res.redirect("/");
+    }
+
+    return res.render(__dirname + "/views/completed.ejs", { tasks: tasks });
   } else {
     res.redirect("/");
   }
 });
 
 // pending page
-app.get("/pending", (req, res) => {
+app.get("/pending", async (req, res) => {
   if (req.isAuthenticated()) {
-    res.render(__dirname + "/views/pending.ejs");
+    const userId = req.user.id;
+    try {
+      var tasks = await Task.find({
+        user_id: userId,
+        pending: true,
+      }).exec();
+    } catch (err) {
+      console.log(err);
+      return res.redirect("/");
+    }
+
+    return res.render(__dirname + "/views/pending.ejs", { tasks: tasks });
   } else {
     res.redirect("/");
   }
 });
 
 // canceled page
-app.get("/canceled", (req, res) => {
+app.get("/canceled", async (req, res) => {
   if (req.isAuthenticated()) {
-    res.render(__dirname + "/views/canceled.ejs");
+    const userId = req.user.id;
+    try {
+      var tasks = await Task.find({
+        user_id: userId,
+        pending: true,
+      }).exec();
+    } catch (err) {
+      console.log(err);
+      return res.redirect("/");
+    }
+
+    return res.render(__dirname + "/views/canceled.ejs", { tasks: tasks });
   } else {
     res.redirect("/");
   }
