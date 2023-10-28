@@ -114,6 +114,7 @@ input[type="text"]:focus {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 5px;
 }
 .task-title p {
   width: 100%;
@@ -198,6 +199,11 @@ input[type="text"]:focus {
   display: block;
 }
 
+.complete-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
 /* DELETE MODAL */
 .delete-modal {
   display: none;
@@ -245,6 +251,7 @@ input[type="text"]:focus {
   color: #5b67ca;
 }
 
+/* DISABLE MODAL */
 .disable-modal {
   display: none;
   position: fixed;
@@ -258,14 +265,30 @@ input[type="text"]:focus {
   align-items: center;
 }
 
-.disable-no-button {
+.disable-no-button,
+.complete-no-button {
   background: none;
   color: #5b67ca;
+}
+
+/* COMPLETE MODAL */
+.complete-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 /* EDIT MODAL */
 .edit-modal {
   position: fixed;
+  z-index: 1;
   display: none;
   top: 0;
   left: 0;

@@ -136,7 +136,7 @@
               <%= task.title %>
               <i class="bi bi-clock-history"></i>
             </p>
-
+            <i class="bi bi-check complete-icon completeTaskLink"></i>
             <div class="dropdown">
               <i class="bi bi-three-dots-vertical dropdown-icon"></i>
               <div class="menu">
@@ -286,6 +286,17 @@
               </button>
             </form>
             <button class="delete-button disable-no-button">No</button>
+          </div>
+        </div>
+        <div class="complete-modal">
+          <div class="delete-modal-content">
+            <p>Have you finished this task?</p>
+            <form method="POST" action="/complete/<%= task.id %>?_method=PATCH">
+              <button type="submit" class="delete-button delete-yes-button">
+                Yes
+              </button>
+            </form>
+            <button class="delete-button complete-no-button">No</button>
           </div>
         </div>
         <div class="edit-modal">
@@ -453,6 +464,6 @@
       <p class="no-tasks-p">You don't have any ongoing tasks.</p>
       <% } %>
     </section>
-    <script src="/js/completed.js"></script>
+    <script src="/js/ongoing.js"></script>
   </body>
 </html>

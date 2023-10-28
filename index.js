@@ -76,6 +76,7 @@ app.get("/account", async (req, res) => {
     const todayTasks = await Task.find({
       user_id: userId,
       date: { $gte: today, $lte: tomorrow },
+      completed: false,
     }).exec();
     const ongoingTasks = await Task.find({
       user_id: userId,
@@ -134,7 +135,7 @@ app.post("/createtask", async (req, res) => {
       user_id: userId,
       completed: true,
     }).exec();
-  } catch (error) {
+  } catch {
     return res.status(500).send("Error searching for user.");
   }
 
@@ -187,7 +188,7 @@ app.post("/createtask", async (req, res) => {
   });
   try {
     await newTask.save();
-  } catch (error) {
+  } catch {
     return res.render(__dirname + "/views/account.ejs", {
       message: "Task creation failed.",
       user: username.username,
@@ -205,21 +206,39 @@ app.post("/createtask", async (req, res) => {
 app.delete("/deletetask/:id", async (req, res) => {
   const taskId = req.params.id;
   try {
-    const task = await Task.findByIdAndDelete(taskId);
-    if (task.ongoing) {
-      var ongoing = true;
-    } else {
-      ongoing = false;
-    }
-  } catch (error) {
-    console.log(error);
+    var task = await Task.findByIdAndDelete(taskId);
+  } catch {
     return res.status(500).send("Error deleting task.");
   }
-  if (ongoing) {
+  if (task.ongoing) {
     return res.redirect("/ongoing");
-  } else {
+  } else if (task.completed) {
+    return res.redirect("/completed");
+  } else if (task.pending) {
     return res.redirect("/pending");
   }
+});
+
+// Complete a specific post by providing the post id
+app.patch("/complete/:id", async (req, res) => {
+  const taskId = req.params.id;
+  try {
+    await Task.findByIdAndUpdate(taskId, { ongoing: false, completed: true });
+  } catch {
+    return res.status(500).send("Error completing task.");
+  }
+  res.redirect("/ongoing");
+});
+
+// Restore a specific post by providing the post id
+app.patch("/restore/:id", async (req, res) => {
+  const taskId = req.params.id;
+  try {
+    await Task.findByIdAndUpdate(taskId, { completed: false, ongoing: true });
+  } catch {
+    return res.status(500).send("Error completing task.");
+  }
+  res.redirect("/completed");
 });
 
 // Disable a specific post by providing the post id
@@ -227,8 +246,7 @@ app.patch("/disabletask/:id", async (req, res) => {
   const taskId = req.params.id;
   try {
     await Task.findByIdAndUpdate(taskId, { ongoing: false, pending: true });
-  } catch (error) {
-    console.log(error);
+  } catch {
     return res.status(500).send("Error disabling task.");
   }
   res.redirect("/ongoing");
@@ -239,8 +257,7 @@ app.patch("/enabletask/:id", async (req, res) => {
   const taskId = req.params.id;
   try {
     await Task.findByIdAndUpdate(taskId, { ongoing: true, pending: false });
-  } catch (error) {
-    console.log(error);
+  } catch {
     return res.status(500).send("Error enabling task.");
   }
   res.redirect("/pending");
@@ -253,7 +270,16 @@ app.patch("/edit/:id", async (req, res) => {
   // check if there are updates to be made
   let update = {};
   if (req.body.title) update.title = req.body.title;
-  if (req.body.date) update.date = req.body.date;
+  if (req.body.date) {
+    const dateString = req.body.date;
+    if (!isValidDateInput(dateString)) {
+      return res.status(500).send("Invalid date format.");
+    }
+    const [month, day, year] = dateString.split("/").map(Number);
+    const newDate = new Date(year, month - 1, day);
+    newDate.setHours(23, 59, 59, 999); // Set time to 23:59:59.999
+    update.date = newDate;
+  }
   if (req.body.description) update.description = req.body.description;
   const tags = [];
   if (req.body.taghigh === "on") {
@@ -272,8 +298,7 @@ app.patch("/edit/:id", async (req, res) => {
   // update task in database
   try {
     var task = await Task.findByIdAndUpdate(taskId, update);
-  } catch (error) {
-    console.log(error);
+  } catch {
     return res.status(500).send("Error editing task.");
   }
 
@@ -294,8 +319,7 @@ app.get("/completed", async (req, res) => {
         user_id: userId,
         completed: true,
       }).exec();
-    } catch (err) {
-      console.log(err);
+    } catch {
       return res.redirect("/");
     }
 
@@ -314,8 +338,7 @@ app.get("/pending", async (req, res) => {
         user_id: userId,
         pending: true,
       }).exec();
-    } catch (err) {
-      console.log(err);
+    } catch {
       return res.redirect("/");
     }
 
@@ -334,8 +357,7 @@ app.get("/canceled", async (req, res) => {
         user_id: userId,
         pending: true,
       }).exec();
-    } catch (err) {
-      console.log(err);
+    } catch {
       return res.redirect("/");
     }
 
@@ -354,8 +376,7 @@ app.get("/ongoing", async (req, res) => {
         user_id: userId,
         ongoing: true,
       }).exec();
-    } catch (err) {
-      console.log(err);
+    } catch {
       return res.redirect("/");
     }
 
