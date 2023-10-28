@@ -355,7 +355,7 @@ app.get("/canceled", async (req, res) => {
     try {
       var tasks = await Task.find({
         user_id: userId,
-        pending: true,
+        canceled: true,
       }).exec();
     } catch {
       return res.redirect("/");

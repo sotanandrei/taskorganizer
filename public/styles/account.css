@@ -94,6 +94,13 @@ p {
   grid-row-start: 1;
   grid-row-end: 4;
 }
+.task-completed:hover {
+  background: linear-gradient(
+    46deg,
+    #58b7e0 0%,
+    rgba(125, 200, 231, 0.69) 100%
+  );
+}
 .task-completed-details {
   position: absolute;
   top: 15px;
@@ -101,6 +108,7 @@ p {
   color: #12175e;
   font-size: 1rem;
   font-weight: 500;
+  transition: left 0.6s;
 }
 .task-completed-icons {
   position: absolute;
@@ -108,7 +116,9 @@ p {
   left: 125px;
   font-size: 1.5rem;
   color: #12175e;
+  transition: left 0.6s, transform 0.6s;
 }
+
 a:-webkit-any-link {
   color: #12175e;
 }
@@ -124,6 +134,14 @@ a:-webkit-any-link {
   grid-row: 1 / 3;
 }
 
+.task-pending:hover {
+  background: linear-gradient(
+    61deg,
+    #5a68e4 0%,
+    rgba(125, 136, 231, 0.74) 100%
+  );
+}
+
 .task-pending-details {
   position: absolute;
   top: 15px;
@@ -131,6 +149,7 @@ a:-webkit-any-link {
   color: white;
   font-size: 1rem;
   font-weight: 500;
+  transition: left 0.6s;
 }
 
 #clock-icon {
@@ -151,6 +170,14 @@ a:-webkit-any-link {
   grid-row-start: 3;
   grid-row-end: 6;
 }
+
+.task-ongoing:hover {
+  background: linear-gradient(
+    46deg,
+    #50de78 0%,
+    rgba(129, 232, 158, 0.35) 100%
+  );
+}
 .task-canceled {
   position: relative;
   border-radius: 14px;
@@ -164,8 +191,62 @@ a:-webkit-any-link {
   box-shadow: -3px 7px 13px 0px #f1f7ff;
 }
 
+.task-canceled:hover {
+  background: linear-gradient(
+    60deg,
+    #df5454 0%,
+    rgba(231, 125, 125, 0.71) 100%
+  );
+}
+
 #canceled-icon {
   font-size: 1.5rem;
+}
+
+.task-completed:hover .task-completed-icons,
+.task-canceled:hover .task-completed-icons,
+.task-pending:hover .task-completed-icons,
+.task-ongoing:hover .task-completed-icons {
+  left: 230px;
+  transform: scale(1.5);
+}
+
+@media (hover: none) {
+  .task-completed:active {
+    background: linear-gradient(
+      46deg,
+      #58b7e0 0%,
+      rgba(125, 200, 231, 0.69) 100%
+    );
+  }
+  .task-pending:active {
+    background: linear-gradient(
+      61deg,
+      #7d88e7 0%,
+      rgba(125, 136, 231, 0.74) 100%
+    );
+  }
+  .task-ongoing:active {
+    background: linear-gradient(
+      46deg,
+      #50de78 0%,
+      rgba(129, 232, 158, 0.35) 100%
+    );
+  }
+  .task-canceled:active {
+    background: linear-gradient(
+      60deg,
+      #df5454 0%,
+      rgba(231, 125, 125, 0.71) 100%
+    );
+  }
+  .task-completed:active .task-completed-icons,
+  .task-canceled:active .task-completed-icons,
+  .task-pending:active .task-completed-icons,
+  .task-ongoing:active .task-completed-icons {
+    left: 125px;
+    transform: scale(1.2);
+  }
 }
 /* Today's task section */
 .todaytask-section {
@@ -297,6 +378,10 @@ nav i {
   background-color: white;
   border: none;
   cursor: pointer;
+}
+
+#openModalBtn:hover circle {
+  fill: #4655dc; /* Change the fill color when hovering */
 }
 
 #closeModalBtn {
@@ -455,5 +540,39 @@ nav i {
   }
   .error-modal-content {
     max-width: 400px;
+  }
+  .task-completed-details,
+  .task-pending-details,
+  .task-ongoing-details,
+  .task-canceled-details {
+    left: 35px;
+  }
+  .task-completed-icons {
+    left: 145px;
+  }
+  .task-completed:hover .task-completed-details {
+    left: 70px;
+  }
+  .task-pending:hover .task-pending-details {
+    left: 70px;
+  }
+  .task-canceled:hover .task-pending-details {
+    left: 70px;
+  }
+  .task-ongoing:hover .task-completed-details {
+    left: 70px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .task-completed-icons {
+    left: 115px;
+  }
+  .task-completed:hover .task-completed-icons,
+  .task-canceled:hover .task-completed-icons,
+  .task-pending:hover .task-completed-icons,
+  .task-ongoing:hover .task-completed-icons {
+    left: 125px;
+    transform: scale(1.2);
   }
 }
