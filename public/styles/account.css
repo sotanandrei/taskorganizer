@@ -381,7 +381,7 @@ nav i {
 }
 
 #openModalBtn:hover circle {
-  fill: #4655dc; /* Change the fill color when hovering */
+  fill: #3e4796; /* Change the fill color when hovering */
 }
 
 #closeModalBtn {

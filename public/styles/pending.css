@@ -161,6 +161,14 @@ input[type="text"]:focus {
 
 .dropdown-icon {
   cursor: pointer;
+  display: block;
+  width: 25px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.dropdown-icon:hover {
+  background: rgba(143, 153, 235, 0.2);
 }
 .menu {
   position: absolute;
@@ -202,6 +210,14 @@ input[type="text"]:focus {
 .complete-icon {
   font-size: 1.2rem;
   cursor: pointer;
+  display: block;
+  width: 40px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.complete-icon:hover {
+  background: rgba(143, 153, 235, 0.2);
 }
 
 /* DELETE MODAL */

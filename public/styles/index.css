@@ -5,6 +5,13 @@ body {
   font-family: "Hind Siliguri", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: #5b67ca;
+}
+a:hover {
+  color: #3e4796;
+}
 /* HEROES SECTION */
 .heroes {
   height: 100vh;
